@@ -1,3 +1,5 @@
+using WeatherAPI.Data;
+
 namespace WeatherAPI.Web
 {
     public class Program
@@ -8,6 +10,8 @@ namespace WeatherAPI.Web
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<OpenWeatherAPIService>();
 
             var app = builder.Build();
 

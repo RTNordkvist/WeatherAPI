@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Text.Json;
-using WeatherAPI.Data.OpenWeatherAPIModels;
 using WeatherAPI.Web.Models;
 
 namespace WeatherAPI.Web.Controllers
@@ -17,9 +15,7 @@ namespace WeatherAPI.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var weather = await WeatherGET();
-
-            return View(weather);
+            return View();
         }
 
         public IActionResult Privacy()
@@ -31,17 +27,6 @@ namespace WeatherAPI.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public async Task<CurrentWeather?> WeatherGET()
-        {
-            var httpClient = new HttpClient();
-
-            var respons = await httpClient.GetStringAsync("https://api.openweathermap.org/data/2.5/weather?q=Stockholm,se&APPID=544ad375f5007cc6a734fd13b0a0f8fe");
-
-            var weatherforecast = JsonSerializer.Deserialize<CurrentWeather>(respons);
-
-            return weatherforecast;
         }
     }
 }
